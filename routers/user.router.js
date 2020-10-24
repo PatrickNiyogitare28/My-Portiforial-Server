@@ -12,4 +12,5 @@ router.post('/login', login);
 
 router.get('',[authMiddleware],getUsers);
 
+
 module.exports = router;
