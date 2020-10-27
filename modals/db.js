@@ -14,3 +14,4 @@ mongoose.connect('mongodb://localhost/patrick_bland_db', {
 require('./users.modal');
 require('./blogs.modal');
 require('./inquiry.modal');
+require('./comments.modal');

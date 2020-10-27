@@ -5,7 +5,7 @@ const _ = require('lodash');
 const getCurrentDate = require('../utils/date');
 const currentUser = require('../utils/auth.currentUser');
 const {User} = require('../modals/users.modal');
-
+// const {saveImage} = require('../utils/saveImage');
 
 exports.createBlog = async(req,res)=>{
     let user = await currentUser(req,res);
@@ -178,3 +178,53 @@ exports.deleteBlog = async(req,res)=>{
         res.send(error);
     })
 }
+
+module.exports.updateBlogImage = async(req,res)  => {
+    const blogId = req.params.blogId;
+     let blog;
+     
+     try{
+         blog = Blog.findOne({_id: blogId});
+         const file = req.file;
+         const orderId = req.header('order-id');
+         
+         if (!file) {
+             const error = new Error('No File')
+             res.send({
+                 success: false,status: 400, error
+             }).status(400)
+             error.httpStatusCode = 400
+             return next(error)
+         }
+       let newBlog = {
+            author: blog.author,
+            title: blog.title,
+            content: blog.content,
+            date: blog.date,
+            imageURL: `uploads/blogs/${file.filename}.png`
+
+        }
+        Blog.findOneAndUpdate({_id: blogId},newBlog).then(()=>{
+            res.send({
+                success: true,
+                status: 200,
+                message: "Image saved",
+                blog: newBlog
+            }).status(200)
+        }).catch((error)=> {
+            res.send({
+                success: false,
+                status: 400,
+                error: error
+            }).status(400)
+        })
+
+     }
+     catch(error){
+         res.send({
+             success: false,
+             status: 404,
+             message: 'Blog not found'
+         }).status(404)
+     }
+    }
