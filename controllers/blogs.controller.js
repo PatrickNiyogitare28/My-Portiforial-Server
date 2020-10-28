@@ -5,7 +5,23 @@ const _ = require('lodash');
 const getCurrentDate = require('../utils/date');
 const currentUser = require('../utils/auth.currentUser');
 const {User} = require('../modals/users.modal');
-// const {saveImage} = require('../utils/saveImage');
+
+const multer = require('multer');
+// const upload = multer({dest:'uploads/blogs'}).single("demo_image");
+const storage = multer.diskStorage({
+    destination: (req, file, callBack) => {
+        callBack(null, 'uploads/blogs')
+    },
+    filename: (req, file, callBack) => {
+        callBack(null, `${UniqueId()}.jpg`)
+    }
+})
+const upload = multer({
+    storage: storage
+}).single('demo_image');
+
+const {getBlog} = require('../utils/getBlog');
+
 
 exports.createBlog = async(req,res)=>{
     let user = await currentUser(req,res);
@@ -51,7 +67,8 @@ exports.getBlogs = async(req,res)=>{
                     authorEmail: user.email,
                     title: blog.title,
                     content: blog.content,
-                    date: blog.date
+                    date: blog.date,
+                    imageURL: blog.imageURL
              
             })
             if(allBlogs.length == blogs.length){
@@ -89,7 +106,7 @@ exports.updateBlog = async(req,res)=>{
     let query = {_id: req.params.id};
     let blog;
     try{
-        blog = await Blog.findOne({_id: req.params.id});
+        blog =  getBlog(blogId);
     }
     catch(error){
      return  res.send({
@@ -179,52 +196,52 @@ exports.deleteBlog = async(req,res)=>{
     })
 }
 
-module.exports.updateBlogImage = async(req,res)  => {
-    const blogId = req.params.blogId;
-     let blog;
-     
-     try{
-         blog = Blog.findOne({_id: blogId});
-         const file = req.file;
-         const orderId = req.header('order-id');
-         
-         if (!file) {
-             const error = new Error('No File')
-             res.send({
-                 success: false,status: 400, error
-             }).status(400)
-             error.httpStatusCode = 400
-             return next(error)
-         }
-       let newBlog = {
-            author: blog.author,
-            title: blog.title,
-            content: blog.content,
-            date: blog.date,
-            imageURL: `uploads/blogs/${file.filename}.png`
-
+exports.updateBlogImage = async(req,res,next)=>{
+    let blogId;
+    upload(req, res, (err) => {
+        if(err) {
+          return res.status(400).send("Something went wrong! "+err);
         }
-        Blog.findOneAndUpdate({_id: blogId},newBlog).then(()=>{
-            res.send({
-                success: true,
-                status: 200,
-                message: "Image saved",
-                blog: newBlog
-            }).status(200)
-        }).catch((error)=> {
-            res.send({
-                success: false,
-                status: 400,
-                error: error
-            }).status(400)
-        })
+        blogId = req.params.blogId;
+        // console.log(blogId);
+        // res.send(req.file);
+    
+        file = req.file;
+        updateBlogWithImageRL(res,blogId,req.file);
+      });
 
-     }
-     catch(error){
-         res.send({
-             success: false,
-             status: 404,
-             message: 'Blog not found'
-         }).status(404)
-     }
+      
+}
+
+updateBlogWithImageRL = async(res,blogId,file) => {
+    try{
+     let blog = await Blog.findOne({_id: blogId});
+     console.log(blog)
+     let newBlog = {
+        author: blog.author,
+        title: blog.title,
+        content: blog.content,
+        date: blog.title,
+        imageURL:file.path
     }
+
+    Blog.findOneAndUpdate({_id: blogId},newBlog).then(()=>{
+        res.send({
+            success: true,
+            status: 200,
+            message: "Blog image saved",
+            blog: newBlog,
+            file: file
+        }).status(200)
+    })
+    }
+    catch(e){
+        console.log("///// "+e)
+        return res.send({
+            success: false,
+            status: 404,
+            message:"Blog not found"
+        }).status(404)
+    }
+
+}
