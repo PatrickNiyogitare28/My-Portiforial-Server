@@ -96,7 +96,7 @@ exports.getBlogById = async(req,res)=>{
                     date: blog.date,
                     content: blog.content
                 }
-            }).status(00)
+            }).status(200)
         })
     })
     
@@ -213,7 +213,7 @@ exports.updateBlogImage = async(req,res,next)=>{
       
 }
 
-updateBlogWithImageRL = async(res,blogId,file) => {
+const updateBlogWithImageRL = async(res,blogId,file) => {
     try{
      let blog = await Blog.findOne({_id: blogId});
      console.log(blog)

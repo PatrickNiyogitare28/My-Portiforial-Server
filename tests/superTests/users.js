@@ -1,5 +1,8 @@
 const app = require('../../app');
 const request = require('supertest');
+// import "babel-polyfill"
+import 'regenerator-runtime/runtime'
+jest.useFakeTimers()
 
 describe('Test for singup', ()=> {
    it('Should successfully signup a new user', async() => {
@@ -8,7 +11,8 @@ describe('Test for singup', ()=> {
         email: "test@gmail.com",
         password: "Test@123"
     })
-    .expect(res.statusCode()).toBe(201)
+    console.log("////res "+res);
+    expect(res.statusCode()).toBe(201)
    });
   
 })
