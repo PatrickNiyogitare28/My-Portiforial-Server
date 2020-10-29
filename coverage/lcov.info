@@ -320,7 +320,7 @@ FN:124,(anonymous_7)
 FN:131,(anonymous_8)
 FNF:9
 FNH:1
-FNDA:1,(anonymous_0)
+FNDA:2,(anonymous_0)
 FNDA:0,(anonymous_1)
 FNDA:0,(anonymous_2)
 FNDA:0,(anonymous_3)
@@ -337,8 +337,8 @@ DA:5,2
 DA:6,2
 DA:7,2
 DA:9,2
-DA:10,1
-DA:11,1
+DA:10,2
+DA:11,2
 DA:13,1
 DA:14,1
 DA:15,1
@@ -381,7 +381,7 @@ DA:132,0
 DA:141,0
 LF:50
 LH:20
-BRDA:11,0,0,0
+BRDA:11,0,0,1
 BRDA:11,0,1,1
 BRDA:31,1,0,0
 BRDA:31,1,1,0
@@ -392,7 +392,7 @@ BRDA:68,3,1,0
 BRDA:68,4,0,0
 BRDA:68,4,1,0
 BRF:10
-BRH:1
+BRH:2
 end_of_record
 TN:
 SF:helper/validators/blog.validator.js
@@ -428,15 +428,15 @@ FN:14,(anonymous_0)
 FN:25,(anonymous_1)
 FNF:2
 FNH:1
-FNDA:1,(anonymous_0)
+FNDA:2,(anonymous_0)
 FNDA:0,(anonymous_1)
 DA:1,2
 DA:3,2
 DA:9,2
 DA:14,2
-DA:15,1
-DA:16,1
-DA:22,1
+DA:15,2
+DA:16,2
+DA:22,2
 DA:25,2
 DA:26,0
 DA:27,0
@@ -444,7 +444,7 @@ DA:33,0
 LF:11
 LH:8
 BRDA:16,0,0,0
-BRDA:16,0,1,1
+BRDA:16,0,1,2
 BRDA:27,1,0,0
 BRDA:27,1,1,0
 BRF:4
