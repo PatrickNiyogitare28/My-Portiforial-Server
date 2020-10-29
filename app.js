@@ -9,6 +9,7 @@ const commentsRouter = require('./routers/comments.router');
 const cors = require('cors');
 const morgan = require('morgan');
 
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors());

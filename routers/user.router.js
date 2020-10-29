@@ -1,4 +1,4 @@
-const userController = require('../controllers/user.controller');
+// const userController = require('../controllers/user.controller');
 const express  = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/auth')
@@ -7,15 +7,14 @@ const {createAccount, login, getUsers,updateUserRole,resetPassword} = require('.
 const {signupValidator,loginValidator} = require('../helper/validators/users.validators.');
 
 
-router.post('/signUp',signupValidator,createAccount);
+router.post('/signUp',[signupValidator],createAccount);
 
-router.post('/login',loginValidator,login);
+router.post('/login',[loginValidator],login);
 
 router.get('',[isAdmin],getUsers);
 
 router.put('/updateRole/user/:id/role/:role',[isAdmin],updateUserRole);
 
 router.put('/resetpassword/user/:id', [isAdmin],resetPassword);
-
 
 module.exports = router;
