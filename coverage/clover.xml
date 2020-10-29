@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1604005599752" clover="3.2.0">
-  <project timestamp="1604005599754" name="All files">
-    <metrics statements="367" coveredstatements="184" conditionals="52" coveredconditionals="3" methods="69" coveredmethods="7" elements="488" coveredelements="194" complexity="0" loc="367" ncloc="367" packages="8" files="26" classes="26"/>
+<coverage generated="1604006543548" clover="3.2.0">
+  <project timestamp="1604006543549" name="All files">
+    <metrics statements="367" coveredstatements="184" conditionals="52" coveredconditionals="4" methods="69" coveredmethods="7" elements="488" coveredelements="195" complexity="0" loc="367" ncloc="367" packages="8" files="26" classes="26"/>
     <package name="My-Portiforial-Server">
       <metrics statements="23" coveredstatements="23" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="app.js" path="/home/patrick/Desktop/2020/NodeJS/Capstone/My-Portiforial-Server/app.js">
@@ -237,7 +237,7 @@
       </file>
     </package>
     <package name="My-Portiforial-Server.helper.validators">
-      <metrics statements="17" coveredstatements="11" conditionals="6" coveredconditionals="1" methods="3" coveredmethods="1"/>
+      <metrics statements="17" coveredstatements="11" conditionals="6" coveredconditionals="2" methods="3" coveredmethods="1"/>
       <file name="blog.validator.js" path="/home/patrick/Desktop/2020/NodeJS/Capstone/My-Portiforial-Server/helper/validators/blog.validator.js">
         <metrics statements="6" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
@@ -251,13 +251,13 @@
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
       <file name="users.validators..js" path="/home/patrick/Desktop/2020/NodeJS/Capstone/My-Portiforial-Server/helper/validators/users.validators..js">
-        <metrics statements="11" coveredstatements="8" conditionals="4" coveredconditionals="1" methods="2" coveredmethods="1"/>
+        <metrics statements="11" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="22" count="2" type="stmt"/>
         <line num="25" count="2" type="stmt"/>
         <line num="26" count="0" type="stmt"/>

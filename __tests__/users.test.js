@@ -9,11 +9,12 @@ const app = require('../app')
 
 describe('Test User', () => {
 
+//success signup
  test('Should successfully signup a user', async(done) => {
 
 const response = await request(app).post('/api/users/signUp').send({
      name:"Test User",
-     email: "testuser9@gmail.com",
+     email: "testuser10@gmail.com",
      password: "Test@123"
  });
 
@@ -23,6 +24,7 @@ const response = await request(app).post('/api/users/signUp').send({
 
  });
 
+ //signup with used email
  test('Should fail to signup a new user if the email was used', async(done)=> {
    const response = await request(app).post('/api/users/signUp').send({
     name:"Test User",
@@ -31,7 +33,17 @@ const response = await request(app).post('/api/users/signUp').send({
    });
    expect(response.text).toContain('User already registered');
    done();
+});
 
- })
+//signup with invalid name
+test('Should fail to signup a new user if the name is invalid', async(done)=> {
+    const response = await request(app).post('/api/users/signUp').send({
+     name:"",
+     email: "testuser5@gmail.com",
+     password: "Test@123"
+    });
+    expect(response.text).toContain('false');
+    done();
+ });
 
 });
