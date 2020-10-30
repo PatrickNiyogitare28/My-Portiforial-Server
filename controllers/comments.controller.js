@@ -5,7 +5,7 @@ const currentUser = require('../utils/auth.currentUser');
 const getCurrentDate = require('../utils/date');
 
 exports.sendComment = async(req,res) => {
-  let user = await currentUser();
+  let user = await currentUser(req,res);
   let blogId = req.params.blogId;
   let bog; 
   try{
@@ -34,10 +34,14 @@ exports.sendComment = async(req,res) => {
 }
 
 module.exports.readComments = async(req,res) => {
+  let blogId = req.params.blogId;
   let commentsArr = [];
-  await Comment.find().then(comments => {
-    comments.forEach(comment => {
-      User.findOne({_id: comment.user}).then(user => {
+  await Comment.find({blog: blogId}).then(async(comments) => {
+    console.log("Comments..."+comments);
+    comments.forEach(async(comment) => {
+      console.log(comment.user)
+     await User.findOne({_id: comment.user}).then(user => {
+        console.log(user);
         Blog.findOne({_id: comment.blog}).then(blog => {
          
           commentsArr.push({

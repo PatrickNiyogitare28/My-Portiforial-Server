@@ -7,8 +7,8 @@ const app = require('../app')
 describe('Test Autho', ()=> {
     test('It should successfully login a user',async(done)=> {
       const response = await request(app).post('/api/users/login').send({
-        email: "testuser5@gmail.com",
-        password: "Test@123"
+        email: "makuza@gmail.com",
+        password: "123456"
       });
       expect(response.statusCode).toBe(200);
       expect(response.text).toContain('true');
