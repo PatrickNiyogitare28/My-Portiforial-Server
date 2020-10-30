@@ -4,7 +4,7 @@ const {sendComment,readComments} = require('../controllers/comments.controller')
 const isAdmin = require('../middlewares/admin');
 const authMiddleware = require('../middlewares/auth');
 
-router.post('/sendComment/blogId',[authMiddleware], sendComment);
-router.get('/readComments',[isAdmin],readComments);
+router.post('/sendComment/:blogId',[authMiddleware], sendComment);
+router.get('/readComments/:blogId',readComments);
 
 module.exports = router;

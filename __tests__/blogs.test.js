@@ -13,7 +13,7 @@ describe('Test blogs', ()=> {
     });
 
 test('It should successfuly get blog by Id', async(done)=> {
-    const response = await request(app).get('/api/blogs/getBlog/5f995af89e25e45a31dbffdc');
+    const response = await request(app).get('/api/blogs/getBlog/5f9aac102f9edf1ab0d793b7');
     expect(response.text).toContain('true');
     expect(response.text).toContain(200);
     done();

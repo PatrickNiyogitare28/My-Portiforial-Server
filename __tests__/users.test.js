@@ -11,7 +11,7 @@ describe('Test User', () => {
 
 const response = await request(app).post('/api/users/signUp').send({
      name:"Test User",
-     email: "testuser14@gmail.com",
+     email: "testuser20@gmail.com",
      password: "Test@123"
  });
 
@@ -25,7 +25,7 @@ const response = await request(app).post('/api/users/signUp').send({
  test('Should fail to signup a new user if the email was used', async(done)=> {
    const response = await request(app).post('/api/users/signUp').send({
     name:"Test User",
-    email: "testuser5@gmail.com",
+    email: "makuza@gmail.com",
     password: "Test@123"
    });
    expect(response.text).toContain('User already registered');
