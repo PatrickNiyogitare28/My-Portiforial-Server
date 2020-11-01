@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const usersRoutes = require('./routers/user.router');
 const blogsRoutes = require('./routers/blogs.routes');
 const inquiryRoutes = require('./routers/inquiries.routes');
-const commentsRouter = require('./routers/comments.router');
 const cors = require('cors');
 const morgan = require('morgan');
 
@@ -21,6 +20,6 @@ app.use('/uploads/blogs',express.static('uploads/blogs'))
 app.use('/api/users',usersRoutes);
 app.use('/api/blogs',blogsRoutes);
 app.use('/api/inquiries',inquiryRoutes);
-app.use('/api/comments',commentsRouter);
+
 
 module.exports = app
