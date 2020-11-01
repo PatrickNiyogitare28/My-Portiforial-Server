@@ -1,10 +1,12 @@
 const {Blog}  = require('../modals/blogs.modal')
 const {date,time } =  require('../utils/date');
 let {UniqueId } = require('../utils/uniqueId');
+const {Comment} = require('../modals/comments.modal');
 const _ = require('lodash');
 const getCurrentDate = require('../utils/date');
 const currentUser = require('../utils/auth.currentUser');
 const {User} = require('../modals/users.modal');
+
 
 const multer = require('multer');
 // const upload = multer({dest:'uploads/blogs'}).single("demo_image");
@@ -244,4 +246,103 @@ const updateBlogWithImageRL = async(res,blogId,file) => {
         }).status(404)
     }
 
+}
+
+exports.sendComment = async(req,res) => {
+    let user = await currentUser(req,res);
+    let blogId = req.params.blogId;
+    let bog; 
+    try{
+     blog = await Blog.findOne({_id: blogId});
+     let newComment = new Comment();
+         newComment.user = user._id;
+         newComment.blog = blog._id;
+         newComment.date = getCurrentDate();
+         newComment.comment = req.body.comment;
+         newComment.save().then(comment => {
+           res.send({
+             success: true,
+             status: 200,
+             message: "comment sent",
+             comment: comment
+                     }).status(200)
+         })
+    }
+   catch(error){
+     res.send({
+       success: false,
+       status: 404,
+       message: 'Blog not found'
+     }).status(404)
+   }
+  }
+  
+  module.exports.readComments = async(req,res) => {
+   let blogId = req.params.blogId;
+   let blog;
+   try{
+       blog = await Blog.findOne({_id: blogId});
+   }
+   catch(e){
+       return res.send({
+           success: false,
+           status: 404,
+           message: "Blog not found"
+       }).status(404);
+   }
+   let commentsArr = [];
+   await Comment.find({blog: blogId}).then(async(comments) => {
+         comments.forEach(async(comment) => {
+             await User.findOne({_id: comment.user}).then(user => {
+                     commentsArr.push({
+                     user: _.pick(user,['_id','name','email']),
+                     comment: _.pick(comment,['_id','comment','status',date])
+                 });
+             })
+             if(commentsArr.length == comments.length){
+                return res.send({
+                    sucess: true,
+                    status: 200,
+                    blog: blog,
+                    comments: commentsArr
+                })
+            }
+         })
+      
+        
+   });
+}
+
+module.exports.deleteComment = async(req,res) => {
+    let commentId = req.params.commentId;
+  
+    try{
+        let comment = await Comment.findOne({_id: commentId});
+        if(comment) {
+            await Comment.findOneAndDelete({_id: commentId}).then(removed => {
+                return res.send({
+                    success: true,
+                    status: 200,
+                    message: "comment deleted",
+                    comment: removed
+                }).status(200);
+            })
+        }
+        else{
+            return res.send({
+                success: false,
+                status: 404,
+                message: "comment not found"
+            }).status(404);
+        }
+        
+    }
+    catch(e){
+        return res.send({
+            success: false,
+            status: 404,
+            message: "Error: "+e
+        }).status(404);
+       
+    }
 }
