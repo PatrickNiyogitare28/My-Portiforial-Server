@@ -7,7 +7,7 @@ mongoose.set('useUnifiedTopology', true);
 
 require('dotenv').config()
 
-mongoose.connect(process.env.DEV_DB, {
+mongoose.connect(process.env.PROD_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
